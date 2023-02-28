@@ -5,6 +5,20 @@ const { pick } = require('lodash');
 const { resolveDestTableName, resolveSourceTableName } = require('./tableNameHelpers');
 
 async function migrate(source, destination, itemMapper = undefined) {
+
+    if (destination === 'Pages') {
+      destination = 'pages'
+    }
+
+    if (destination === 'Pages_components') {
+      destination = 'pages_components'
+    }
+
+    if (destination === 'Websites') {
+      destination = 'websites'
+    }
+
+
   if (isMYSQL) {
     const sourceNotExists = (await dbV3.raw(`SHOW TABLES LIKE '%${source}%';`))[0].length === 0;
     const destinationNotExists =
